@@ -1,5 +1,13 @@
+/* BX ipmortants */
+
+:root {
+  --ui-font-family-helvetica: 'Inter', sans-serif !important;
+}
+
 div.bx-livechat-wrapper {
   display: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 12px;
 }
 
 div.b24-widget-button-inner-container {
@@ -9,6 +17,95 @@ div.b24-widget-button-inner-container {
 button.bx-livechat-control-btn-close {
   display: none;
 }
+
+div.bx-livechat-control-box {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+div.bx-livechat-head {
+  height: 130px !important;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/pattern.png);
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+div.bx-livechat-title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+div.bx-livechat-copyright {
+  display: none;
+}
+
+div.bx-livechat-body {
+  background-color: #F5F5F5;
+  background-image: none;
+  border-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+div.bx-livechat-box {
+  background-color: #de210b;
+}
+
+div.bx-livechat-textarea {
+  background-color: #fff;
+}
+
+div.bx-livechat-help-user {
+  display: none;
+}
+
+h2.bx-livechat-help-title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+div.bx-livechat-help-subtitle {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+div.bx-im-textarea {
+  border-top: none;
+}
+
+textarea.bx-im-textarea-input {
+  font-size: 12px;
+}
+
+/* Chat */
+
+span.bx-im-message-content-text {
+  font-size: 12px;
+}
+
+div.bx-im-message-content{
+  padding: 8px 12px;
+  background-color: #fff;
+}
+
+div.bx-im-message-content-box {
+  padding: 0;
+}
+
+div.bx-im-dialog-group-date {
+  font-size: 12px;
+  font-weight: 300;
+  background-color: #787878;
+}
+
+/* KP */
 
 .kp-widget-button {
   position: fixed;
@@ -48,4 +145,12 @@ div.kp-widget-show {
 
 .kp-widget-hidden {
   display: none;
+}
+
+.kp-widget-header__subtitle {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 72%);
+  text-align: center;
 }
