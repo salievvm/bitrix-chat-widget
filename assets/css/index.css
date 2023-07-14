@@ -92,18 +92,24 @@ div.bx-livechat-user-icon {
   margin: 0;
 }
 
+button.bx-livechat-control-btn.bx-livechat-control-btn-menu {
+  position: absolute;
+  right: 32px;
+  top: 1px;
+}
+
 /* Chat */
 
 span.bx-im-message-content-text {
   font-size: 12px;
 }
 
-div.bx-im-message-content{
+div.bx-im-message-content {
   padding: 8px 12px;
   background-color: #fff;
 }
 
-div.bx-im-message-content-box {
+span.bx-im-message-content-box {
   padding: 0;
 }
 
@@ -111,6 +117,12 @@ div.bx-im-dialog-group-date {
   font-size: 12px;
   font-weight: 300;
   background-color: #787878;
+}
+
+div.bx-livechat-user-position {
+  font-size: 12px;
+  font-weight: 300;
+  text-align: center;
 }
 
 /* KP */
@@ -145,6 +157,9 @@ div.bx-im-dialog-group-date {
   opacity: .6;
   margin: 0;
   border: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 div.kp-widget-show {
@@ -164,5 +179,5 @@ div.kp-widget-show {
 }
 
 .kp-widget-avatars {
-  /* display: none; */
+  display: none;
 }
