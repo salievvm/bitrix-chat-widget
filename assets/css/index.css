@@ -84,6 +84,14 @@ textarea.bx-im-textarea-input {
   font-size: 12px;
 }
 
+div.bx-im-dialog-list-item-name-reference {
+  font-size: 12px;
+}
+
+div.bx-livechat-user-icon {
+  margin: 0;
+}
+
 /* Chat */
 
 span.bx-im-message-content-text {
@@ -153,4 +161,8 @@ div.kp-widget-show {
   line-height: 16px;
   color: rgba(255, 255, 255, 72%);
   text-align: center;
+}
+
+.kp-widget-avatars {
+  /* display: none; */
 }

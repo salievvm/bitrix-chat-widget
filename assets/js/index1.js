@@ -10,9 +10,12 @@ class LiveChat {
   header;
   headerClose;
   headerCloseButton;
+  commandPhoto;
 
   noMessagesTitle;
   noMessagesSubtitle;
+
+  textArea;
 
   isMobile = navigator.userAgentData.mobile;
 
@@ -25,7 +28,9 @@ class LiveChat {
   checkLoadedRootContainer = () => {
     this.BXLiveChat.openLiveChat();
     this.rootContainer = document.getElementsByClassName("bx-livechat-wrapper");
-    if (this.rootContainer && this.rootContainer.length) {
+    this.textArea = document.querySelector('div.bx-livechat-textarea textarea.bx-im-textarea-input');
+
+    if (this.rootContainer && this.rootContainer.length && this.textArea) {
       this.rootContainer = this.rootContainer[0];
       if (!this.isMobile) {
         this.rootContainer.style.height = 'calc(100vh - 150px)';
@@ -39,10 +44,10 @@ class LiveChat {
   createHeader = () => {
     const commandPhoto = document.createElement('img');
     commandPhoto.setAttribute('src', './assets/img/command.png');
+    commandPhoto.classList.add('kp-widget-avatars');
     commandPhoto.setAttribute('height', 40);
 
-    console.log(this.header);
-
+    this.commandPhoto = commandPhoto;
     this.header.prepend(commandPhoto);
 
     const outworkText = document.createElement('div');
@@ -63,17 +68,21 @@ class LiveChat {
   }
 
   renameBody = () => {
+    this.noMessagesTitle = document.getElementsByClassName('bx-livechat-help-title')[0];
+    this.noMessagesSubtitle = document.getElementsByClassName('bx-livechat-help-subtitle')[0];
+
     if (this.noMessagesTitle)
       this.noMessagesTitle.innerText = 'Мы с вами еще не общались';
     if (this.noMessagesSubtitle)
       this.noMessagesSubtitle.innerText = 'Здесь будет история ваших диалогов';
 
-    this.noMessagesTitle.appendChild(this.noMessagesSubtitle);
+    if (this.noMessagesTitle && this.noMessagesSubtitle)
+      this.noMessagesTitle.appendChild(this.noMessagesSubtitle);
   }
 
-  createButtonIconClose = () => {
-    this.buttonIconClose = this.headerCloseButton.cloneNode(true);
-  }
+  // createButtonIconClose = () => {
+  //   this.buttonIconClose = this.headerCloseButton.cloneNode(true);
+  // }
 
   createButton = () => {
     const button = document.createElement('div');
@@ -97,17 +106,37 @@ class LiveChat {
     document.body.appendChild(this.button);
   }
 
+  handleOpen = () => {
+    console.log('OPEN');
+    this.rootContainer.classList.add('kp-widget-show');
+    this.rootContainer.classList.remove('kp-widget-hidden');
+    this.state = 1;
+  }
+
+  handleClose = () => {
+    console.log('CLOSE');
+    this.rootContainer.classList.add('kp-widget-hidden');
+    this.rootContainer.classList.remove('kp-widget-show');
+    this.state = 0;
+  }
+
   toggleOpen = () => {
     if (this.state) {
-      console.log('CLOSE');
-      this.rootContainer.classList.add('kp-widget-hidden');
-      this.rootContainer.classList.remove('kp-widget-show');
-      this.state = 0;
+      this.handleClose();
     } else {
-      console.log('OPEN');
-      this.rootContainer.classList.add('kp-widget-show');
-      this.rootContainer.classList.remove('kp-widget-hidden');
-      this.state = 1;
+      this.handleOpen();
+    }
+  }
+
+  // hideAvatars = () => {
+  //   this.commandPhoto.style.display = 'none';
+  // }
+
+  handleEnterKey = (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault(); // Предотвратить отправку формы
+      console.log('handleEnterKey');
+      this.handleOpen();
     }
   }
 
@@ -117,8 +146,12 @@ class LiveChat {
       this.headerClose = document.getElementsByClassName('bx-livechat-control-box')[0];
       this.header = document.getElementsByClassName('bx-livechat-head')[0];
 
-      this.noMessagesTitle = document.getElementsByClassName('bx-livechat-help-title')[0];
-      this.noMessagesSubtitle = document.getElementsByClassName('bx-livechat-help-subtitle')[0];
+      const textArea = document.querySelector('div.bx-livechat-textarea textarea.bx-im-textarea-input');
+      console.log(this.header, { textArea });
+      
+      this.textArea.addEventListener('keyup', this.handleEnterKey);
+
+      // this.BXLiveChat.addEventListener(window, "online", this.hideAvatars);
 
       this.createHeader();
       this.createButton();
@@ -157,7 +190,7 @@ const findWidgetB24 = (BXLiveChat) => {
     console.log('Попытка достучаться до виджета №' + countIntervals);
 
     console.groupEnd();
-  }, 200);
+  }, 400);
 }
 
 window.onload = () => {
