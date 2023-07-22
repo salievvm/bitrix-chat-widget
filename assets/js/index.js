@@ -21,6 +21,12 @@ class LiveChat {
 
   state = 0;
 
+  startWorkDayAt = 8;
+  endWorkDayAt = 20;
+  timeZoneOffset = 3; // Moscow time
+  textWorkTime = 'Задайте свой вопрос, и мы подберем для вас лучшее решение.\n Мы работаем для вас с ПН по ПТ с 9:00-19:00 (МСК).';
+  textNotWorkTime = 'Задайте свой вопрос, наши специалисты обязательно свяжутся с вами в рабочее время\n с ПН по ПТ с 9:00-19:00 (МСК).';
+
   constructor (BXLiveChat) {
     this.BXLiveChat = BXLiveChat;
   }
@@ -42,6 +48,21 @@ class LiveChat {
     }
   }
 
+  isWorkingTime() {
+    const currentTime = new Date();
+    const gmt3Offset = this.timeZoneOffset * 60; // Временная разница в минутах для GMT+3
+  
+    // Получаем текущий час в часовом поясе GMT+3
+    const currentHour = currentTime.getUTCHours() + gmt3Offset / 60;
+  
+    // Сравниваем текущее время с диапазоном (от 08:00 до 20:00)
+    if (currentHour >= this.startWorkDayAt && currentHour < this.endWorkDayAt) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   createHeader = () => {
     const commandPhoto = document.createElement('img');
     commandPhoto.setAttribute('src', './assets/img/command.png');
@@ -52,7 +73,11 @@ class LiveChat {
     this.header.prepend(commandPhoto);
 
     const outworkText = document.createElement('div');
-    outworkText.innerText = 'Добро пожаловать в чат поддержки! \nМы отвечаем в рабочие дни с 08:00 до 20:00 МСК.';
+    if (this.isWorkingTime()) {
+      outworkText.innerText = this.textWorkTime;
+    } else {
+      outworkText.innerText = this.textNotWorkTime;
+    }
     outworkText.classList.add('kp-widget-header__subtitle');
 
     this.header.append(outworkText);
